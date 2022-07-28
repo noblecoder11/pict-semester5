@@ -1,0 +1,373 @@
+mysql> use t31132db;
+Database changed
+mysql> create table dept (dept_id INT PRIMARY KEY, dname varchar(20), dlocation varchar(20));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create table employee (emp_id int primary key, dept_id int, foreign key(dept_id) references dept(dept_id) on delete cascade, fname varchar(20), lname varchar(20), designation varchar(20), salary int, join_date date);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create table project (proj_id int primary key, dept_id int, foreign key(dept_id) references dept(dept_id) on delete cascade, pname varchar(20), plocation varchar(20), pcost int, pyear int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> -- 1. Insert at least 10 records in the Employee table and insert other tables accordingly.
+mysql> 
+mysql> insert into dept values(1, 'Computer', 'Pune');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dept values(2, 'IT', 'Pune');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dept values(3, 'Computer', 'Mumbai');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dept values(4, 'IT', 'Mumbai');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dept values(5, 'Production', 'Nagpur');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into dept values(6, 'Production', 'Nagpur');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> 
+mysql> -- I inserted all 'dlocation's as 'Pune'. So these commands were used to change it
+mysql> -- update dept set dlocation='Mumbai' where (dept_id=3 or dept_id=4);
+mysql> -- update dept set dlocation='Nagpur' where (dept_id=5 or dept_id=6);
+mysql> 
+mysql> insert into employee values (1, 1, 'Shreyash', 'Halge', 'Team Lead', 100000, '2021-07-26');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employee values (2, 6, 'Pranav', 'Unkal', 'Project Manager', 150000, '2020-04-17');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values (3, 2, 'Vaibhav', 'Kulkarni', 'Team Lead', 90000, '2018-04-27');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values (4, 4, 'Pankaj', 'Patil', 'Developer', 50000, '2012-11-30');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values (5, 5, 'Hardik', 'Pandya', 'Marketing Head', 200000, '2011-07-06');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values (6, 3, 'Harshita', 'Arora', 'CEO', 1000000, '2008-03-06');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employee values (7, 1, 'Tanaya', 'Modani', 'Team Lead', 100000, '2022-07-26');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values (8, 1, 'Gayatri', 'Kudal', 'Developer', 70000, '2022-06-05');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values (9, 2, 'Yash', 'Anchule', 'Developer', 50000, '2022-07-26');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values (10, 3, 'Darshan', 'Mohekar', 'CTO', 700000, '2008-12-12');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values (11, 4, 'Aniket', 'Kulkarni', 'Intern', 10000, '2022-03-26');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> 
+mysql> insert into project values (1, 1, 'Chatbot', 'Pune', 1000000, 2022);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into project values (2, 6, 'Border Communication', 'Mumbai', 10000000, 2004);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into project values (3, 1, 'Student Management', 'New Dehli', 500000, 2005);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into project values (4, 3, 'Healthcare', 'Pune', 9000000, 2006);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into project values (5, 4, 'Stock Predictor', 'Nagpur', 1000000, 2012);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into project values (6, 2, 'Messaging App', 'Bengaluru', 7000000, 2007);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++--------+---------+----------+----------+-----------------+---------+------------+
+| emp_id | dept_id | fname    | lname    | designation     | salary  | join_date  |
++--------+---------+----------+----------+-----------------+---------+------------+
+|      1 |       1 | Shreyash | Halge    | Team Lead       |  100000 | 2021-07-26 |
+|      2 |       6 | Pranav   | Unkal    | Project Manager |  150000 | 2020-04-17 |
+|      3 |       2 | Vaibhav  | Kulkarni | Team Lead       |   90000 | 2018-04-27 |
+|      4 |       4 | Pankaj   | Patil    | Developer       |   50000 | 2012-11-30 |
+|      5 |       5 | Hardik   | Pandya   | Marketing Head  |  200000 | 2011-07-06 |
+|      6 |       3 | Harshita | Arora    | CEO             | 1000000 | 2008-03-06 |
+|      7 |       1 | Tanaya   | Modani   | Team Lead       |  100000 | 2022-07-26 |
+|      8 |       1 | Gayatri  | Kudal    | Developer       |   70000 | 2022-06-05 |
+|      9 |       2 | Yash     | Anchule  | Developer       |   50000 | 2022-07-26 |
+|     10 |       3 | Darshan  | Mohekar  | CTO             |  700000 | 2008-12-12 |
+|     11 |       4 | Aniket   | Kulkarni | Intern          |   10000 | 2022-03-26 |
++--------+---------+----------+----------+-----------------+---------+------------+
+11 rows in set (0.00 sec)
+
+mysql> select * from project
+    -> ;
++---------+---------+----------------------+-----------+----------+-------+
+| proj_id | dept_id | pname                | plocation | pcost    | pyear |
++---------+---------+----------------------+-----------+----------+-------+
+|       1 |       1 | Chatbot              | Pune      |  1000000 |  2022 |
+|       2 |       6 | Border Communication | Mumbai    | 10000000 |  2004 |
+|       3 |       1 | Student Management   | New Dehli |   500000 |  2005 |
+|       4 |       3 | Healthcare           | Pune      |  9000000 |  2006 |
+|       5 |       4 | Stock Predictor      | Nagpur    |  1000000 |  2012 |
+|       6 |       2 | Messaging App        | Bengaluru |  7000000 |  2007 |
++---------+---------+----------------------+-----------+----------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from dept;
++---------+------------+-----------+
+| dept_id | dname      | dlocation |
++---------+------------+-----------+
+|       1 | Computer   | Pune      |
+|       2 | IT         | Pune      |
+|       3 | Computer   | Mumbai    |
+|       4 | IT         | Mumbai    |
+|       5 | Production | Nagpur    |
+|       6 | Production | Nagpur    |
++---------+------------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> -- 2. Display all Employee details with Department ‘Computer’ and ‘IT’ and Employee first name starting with 'p' or 'h'. 
+mysql> select * from employee left join dept on employee.dept_id=dept.dept_id where 
+    -> (dept.dname='Computer' or dept.dname='IT')
+    -> and
+    -> (emp_id in (select emp_id from employee where fname like 'H%' or fname like 'P%')); 
++--------+---------+----------+-------+-------------+---------+------------+---------+----------+-----------+
+| emp_id | dept_id | fname    | lname | designation | salary  | join_date  | dept_id | dname    | dlocation |
++--------+---------+----------+-------+-------------+---------+------------+---------+----------+-----------+
+|      6 |       3 | Harshita | Arora | CEO         | 1000000 | 2008-03-06 |       3 | Computer | Mumbai    |
+|      4 |       4 | Pankaj   | Patil | Developer   |   50000 | 2012-11-30 |       4 | IT       | Mumbai    |
++--------+---------+----------+-------+-------------+---------+------------+---------+----------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select distinct designation from employee;
++-----------------+
+| designation     |
++-----------------+
+| Team Lead       |
+| Project Manager |
+| Developer       |
+| Marketing Head  |
+| CEO             |
+| CTO             |
+| Intern          |
++-----------------+
+7 rows in set (0.00 sec)
+
+mysql> -- 6. Find the names of Projects with location ‘pune’ . 
+mysql> select * from project where plocation='Pune';
++---------+---------+------------+-----------+---------+-------+
+| proj_id | dept_id | pname      | plocation | pcost   | pyear |
++---------+---------+------------+-----------+---------+-------+
+|       1 |       1 | Chatbot    | Pune      | 1000000 |  2022 |
+|       4 |       3 | Healthcare | Pune      | 9000000 |  2006 |
++---------+---------+------------+-----------+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> -- 7. Find the project having cost in between 100000 to 500000. 
+mysql> select * from project where pcost between 100000 and 500000;
++---------+---------+--------------------+-----------+--------+-------+
+| proj_id | dept_id | pname              | plocation | pcost  | pyear |
++---------+---------+--------------------+-----------+--------+-------+
+|       3 |       1 | Student Management | New Dehli | 500000 |  2005 |
++---------+---------+--------------------+-----------+--------+-------+
+1 row in set (0.00 sec)
+
+mysql> -- 8. Find the project having maximum price and find average Project cost.
+mysql> select * from project where pcost=(select max(pcost) from project);
++---------+---------+----------------------+-----------+----------+-------+
+| proj_id | dept_id | pname                | plocation | pcost    | pyear |
++---------+---------+----------------------+-----------+----------+-------+
+|       2 |       6 | Border Communication | Mumbai    | 10000000 |  2004 |
++---------+---------+----------------------+-----------+----------+-------+
+1 row in set (0.00 sec)
+
+mysql> -- 9. Display all employees with Emp _id and Emp name in descending order.
+mysql> select * from employee order by fname desc;
++--------+---------+----------+----------+-----------------+---------+------------+
+| emp_id | dept_id | fname    | lname    | designation     | salary  | join_date  |
++--------+---------+----------+----------+-----------------+---------+------------+
+|      9 |       2 | Yash     | Anchule  | Developer       |   50000 | 2022-07-26 |
+|      3 |       2 | Vaibhav  | Kulkarni | Team Lead       |   90000 | 2018-04-27 |
+|      7 |       1 | Tanaya   | Modani   | Team Lead       |  100000 | 2022-07-26 |
+|      1 |       1 | Shreyash | Halge    | Team Lead       |  100000 | 2021-07-26 |
+|      2 |       6 | Pranav   | Unkal    | Project Manager |  150000 | 2020-04-17 |
+|      4 |       4 | Pankaj   | Patil    | Developer       |   50000 | 2012-11-30 |
+|      6 |       3 | Harshita | Arora    | CEO             | 1000000 | 2008-03-06 |
+|      5 |       5 | Hardik   | Pandya   | Marketing Head  |  200000 | 2011-07-06 |
+|      8 |       1 | Gayatri  | Kudal    | Developer       |   70000 | 2022-06-05 |
+|     10 |       3 | Darshan  | Mohekar  | CTO             |  700000 | 2008-12-12 |
+|     11 |       4 | Aniket   | Kulkarni | Intern          |   10000 | 2022-03-26 |
++--------+---------+----------+----------+-----------------+---------+------------+
+11 rows in set (0.00 sec)
+
+mysql> -- 9. Display all employees with Emp _id and Emp name in descending order.
+mysql> -- 10. Display Proj_name,Plocation ,Pcost of all project started in 2004,2005,2007 
+mysql> select pname, plocation, pcost from project where pyear=2004 or pyear=2005 or pyear=2007;
++----------------------+-----------+----------+
+| pname                | plocation | pcost    |
++----------------------+-----------+----------+
+| Border Communication | Mumbai    | 10000000 |
+| Student Management   | New Dehli |   500000 |
+| Messaging App        | Bengaluru |  7000000 |
++----------------------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> update employee
+    -> set salary=salary+salary*0.10
+    -> where (YEAR(join_date) <= 2015 and emp_id>0);
+Query OK, 4 rows affected (0.01 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> select * from employee;
++--------+---------+----------+----------+-----------------+---------+------------+
+| emp_id | dept_id | fname    | lname    | designation     | salary  | join_date  |
++--------+---------+----------+----------+-----------------+---------+------------+
+|      1 |       1 | Shreyash | Halge    | Team Lead       |  100000 | 2021-07-26 |
+|      2 |       6 | Pranav   | Unkal    | Project Manager |  150000 | 2020-04-17 |
+|      3 |       2 | Vaibhav  | Kulkarni | Team Lead       |   90000 | 2018-04-27 |
+|      4 |       4 | Pankaj   | Patil    | Developer       |   55000 | 2012-11-30 |
+|      5 |       5 | Hardik   | Pandya   | Marketing Head  |  220000 | 2011-07-06 |
+|      6 |       3 | Harshita | Arora    | CEO             | 1100000 | 2008-03-06 |
+|      7 |       1 | Tanaya   | Modani   | Team Lead       |  100000 | 2022-07-26 |
+|      8 |       1 | Gayatri  | Kudal    | Developer       |   70000 | 2022-06-05 |
+|      9 |       2 | Yash     | Anchule  | Developer       |   50000 | 2022-07-26 |
+|     10 |       3 | Darshan  | Mohekar  | CTO             |  770000 | 2008-12-12 |
+|     11 |       4 | Aniket   | Kulkarni | Intern          |   10000 | 2022-03-26 |
++--------+---------+----------+----------+-----------------+---------+------------+
+11 rows in set (0.00 sec)
+
+mysql> -- 5. Delete all the department details having location as ‘mumbai’. 
+mysql> delete from dept where (dlocation='Mumbai' and dept_id>0);
+Query OK, 2 rows affected (0.02 sec)
+
+mysql> select * from dept;
++---------+------------+-----------+
+| dept_id | dname      | dlocation |
++---------+------------+-----------+
+|       1 | Computer   | Pune      |
+|       2 | IT         | Pune      |
+|       5 | Production | Nagpur    |
+|       6 | Production | Nagpur    |
++---------+------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from project;
++---------+---------+----------------------+-----------+----------+-------+
+| proj_id | dept_id | pname                | plocation | pcost    | pyear |
++---------+---------+----------------------+-----------+----------+-------+
+|       1 |       1 | Chatbot              | Pune      |  1000000 |  2022 |
+|       2 |       6 | Border Communication | Mumbai    | 10000000 |  2004 |
+|       3 |       1 | Student Management   | New Dehli |   500000 |  2005 |
+|       6 |       2 | Messaging App        | Bengaluru |  7000000 |  2007 |
++---------+---------+----------------------+-----------+----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee;
++--------+---------+----------+----------+-----------------+--------+------------+
+| emp_id | dept_id | fname    | lname    | designation     | salary | join_date  |
++--------+---------+----------+----------+-----------------+--------+------------+
+|      1 |       1 | Shreyash | Halge    | Team Lead       | 100000 | 2021-07-26 |
+|      2 |       6 | Pranav   | Unkal    | Project Manager | 150000 | 2020-04-17 |
+|      3 |       2 | Vaibhav  | Kulkarni | Team Lead       |  90000 | 2018-04-27 |
+|      5 |       5 | Hardik   | Pandya   | Marketing Head  | 220000 | 2011-07-06 |
+|      7 |       1 | Tanaya   | Modani   | Team Lead       | 100000 | 2022-07-26 |
+|      8 |       1 | Gayatri  | Kudal    | Developer       |  70000 | 2022-06-05 |
+|      9 |       2 | Yash     | Anchule  | Developer       |  50000 | 2022-07-26 |
++--------+---------+----------+----------+-----------------+--------+------------+
+7 rows in set (0.00 sec)
+
+mysql> desc employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_id      | int(11)     | NO   | PRI | NULL    |       |
+| dept_id     | int(11)     | YES  | MUL | NULL    |       |
+| fname       | varchar(20) | YES  |     | NULL    |       |
+| lname       | varchar(20) | YES  |     | NULL    |       |
+| designation | varchar(20) | YES  |     | NULL    |       |
+| salary      | int(11)     | YES  |     | NULL    |       |
+| join_date   | date        | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> desc dept;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_id   | int(11)     | NO   | PRI | NULL    |       |
+| dname     | varchar(20) | YES  |     | NULL    |       |
+| dlocation | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc project;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| proj_id   | int(11)     | NO   | PRI | NULL    |       |
+| dept_id   | int(11)     | YES  | MUL | NULL    |       |
+| pname     | varchar(20) | YES  |     | NULL    |       |
+| plocation | varchar(20) | YES  |     | NULL    |       |
+| pcost     | int(11)     | YES  |     | NULL    |       |
+| pyear     | int(11)     | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> select * from employee;
++--------+---------+----------+----------+-----------------+--------+------------+
+| emp_id | dept_id | fname    | lname    | designation     | salary | join_date  |
++--------+---------+----------+----------+-----------------+--------+------------+
+|      1 |       1 | Shreyash | Halge    | Team Lead       | 100000 | 2021-07-26 |
+|      2 |       6 | Pranav   | Unkal    | Project Manager | 150000 | 2020-04-17 |
+|      3 |       2 | Vaibhav  | Kulkarni | Team Lead       |  90000 | 2018-04-27 |
+|      5 |       5 | Hardik   | Pandya   | Marketing Head  | 220000 | 2011-07-06 |
+|      7 |       1 | Tanaya   | Modani   | Team Lead       | 100000 | 2022-07-26 |
+|      8 |       1 | Gayatri  | Kudal    | Developer       |  70000 | 2022-06-05 |
+|      9 |       2 | Yash     | Anchule  | Developer       |  50000 | 2022-07-26 |
++--------+---------+----------+----------+-----------------+--------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select dept_id from employee where designation='Project Manager';
++---------+
+| dept_id |
++---------+
+|       6 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select dname from employee left join dept where designation='Project Manager';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where designation='Project Manager'' at line 1
+mysql> select dname from employee left join dept on employee.dept_id = dept.dept_id  where designation='Project Manager';
++------------+
+| dname      |
++------------+
+| Production |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select * from dept;
++---------+------------+-----------+
+| dept_id | dname      | dlocation |
++---------+------------+-----------+
+|       1 | Computer   | Pune      |
+|       2 | IT         | Pune      |
+|       5 | Production | Nagpur    |
+|       6 | Production | Nagpur    |
++---------+------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from project;
++---------+---------+----------------------+-----------+----------+-------+
+| proj_id | dept_id | pname                | plocation | pcost    | pyear |
++---------+---------+----------------------+-----------+----------+-------+
+|       1 |       1 | Chatbot              | Pune      |  1000000 |  2022 |
+|       2 |       6 | Border Communication | Mumbai    | 10000000 |  2004 |
+|       3 |       1 | Student Management   | New Dehli |   500000 |  2005 |
+|       6 |       2 | Messaging App        | Bengaluru |  7000000 |  2007 |
++---------+---------+----------------------+-----------+----------+-------+
+4 rows in set (0.00 sec)
