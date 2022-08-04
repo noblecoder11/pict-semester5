@@ -371,3 +371,22 @@ mysql> select * from project;
 |       6 |       2 | Messaging App        | Bengaluru |  7000000 |  2007 |
 +---------+---------+----------------------+-----------+----------+-------+
 4 rows in set (0.00 sec)
+
+mysql> select fname, timestampdiff(day, join_date, CURDATE()) as experience from employee;
++----------+------------+
+| fname    | experience |
++----------+------------+
+| Shreyash |        374 |
+| Pranav   |        839 |
+| Vaibhav  |       1560 |
+| Pankaj   |       3534 |
+| Hardik   |       4047 |
+| Harshita |       5264 |
+| Tanaya   |          9 |
+| Gayatri  |         60 |
+| Yash     |          9 |
+| Darshan  |       4983 |
+| Aniket   |        131 |
+| Rohit    |         60 |
++----------+------------+
+12 rows in set (0.00 sec)
