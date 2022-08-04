@@ -75,3 +75,6 @@ select * from employee order by fname desc;
 
 -- 10. Display Proj_name,Plocation ,Pcost of all project started in 2004,2005,2007 
 select pname, plocation, pcost from project where pyear=2004 or pyear=2005 or pyear=2007;
+
+-- 11. Calculate experience of employees
+select fname, timestampdiff(day, join_date, CURDATE()) as experience from employee;
