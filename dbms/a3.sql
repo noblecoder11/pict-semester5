@@ -59,5 +59,6 @@ create view emp_dept as (select * from employee natural join dept);
 --10. Perform Manipulation on simple view-Insert, update, delete, drop view.
 create view emp_sal as select emp_id, fname, lname, dept_id, salary from employee;
 insert into emp_sal values('13', 'Jayesh', 'Kulkarni', 2, 500000);
+update emp_sal set salary=50000 where emp_id=13;
 delete from emp_sal where emp_id=13;
 drop view emp_sal;
