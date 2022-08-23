@@ -27,3 +27,19 @@ delimiter ;
 call circle_area();
 
 select * from circle_area();
+
+-- using radius as parameter
+delimiter //
+
+CREATE PROCEDURE calculate_circle_area (IN r INT)
+BEGIN
+DECLARE area DOUBLE;
+SET area = 3.14*r*r;
+INSERT INTO Areas VALUES(r, area);
+END;
+//
+
+delimiter ;
+
+CALL calculate_circle_area(10);
+SELECT * FROM Areas;
