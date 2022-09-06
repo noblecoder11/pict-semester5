@@ -1,3 +1,6 @@
+-- below command can be used to run sql file in terminal
+-- mysql --host="10.10.11.220" --user="t31132" --database="t31132db" -p < "31132/a5.sql"
+
 CREATE TABLE Student (rollno INT, name VARCHAR(20), class VARCHAR(20), PRIMARY KEY(name));
 CREATE TABLE Result (name VARCHAR(20), tot_marks INT, PRIMARY KEY(name), FOREIGN KEY(name) REFERENCES Student(name));
 
