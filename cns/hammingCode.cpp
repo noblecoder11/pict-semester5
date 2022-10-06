@@ -139,10 +139,10 @@ int main() {
         cout << transmittedData[i];
     cout << endl;
 
-
 	bool errorFree = r.recieveData(transmittedData);
 
 	if(errorFree) r.displayData();
+	// TODO: check which bit is erroneous and flip it to correct it
 	else cout << "Data received is erroneous." << endl;
 	return 0;
 }
