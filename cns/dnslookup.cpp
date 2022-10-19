@@ -43,6 +43,7 @@ int main() {
     		cout << "Enter ip address: ";
     		string ip; cin>>ip;
     		registerDomain(domain, ip);
+    		cout << "Domain Registered Successfully." << endl;
     	}
     	else if(choice==2){
     		cout << "Enter the search query(IP/domain name): ";
