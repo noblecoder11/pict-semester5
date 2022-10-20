@@ -1,0 +1,47 @@
+mongodb queries:
+design and develop mongodb queries using crud operations(use crud operations, save method, logical operations, etc.)
+
+mogodb aggregation and indexing:
+design and develop mongodb queries using aggregation and indexing with suitable example using mongodb
+
+mongodb map-reduce operations:
+implement map reduce operations with suitable example using mongodb
+
+database connectivity:
+write a program to implement mongo db connectivity with any frontend language to implement database navigation operations(add, delete, edit, etc.)
+
+
+db.Student.insertMany(
+[
+	{name: "Shreyash", rollno: 1, marks: [toc: 90, dbms: 89, cns: 65, spos: 67, ds: 78]},
+	{name: "Aditya", rollno: 2, marks: [toc: 100, dbms: 65, cns: 87, spos: 36, ds: 85]},
+	{name: "Pranav", rollno: 3, marks: [toc: 68, dbms: 76, cns: 53, spos: 87, ds: 65]},
+	{name: "Vaibhav", rollno: 4, marks: [toc: 32, dbms: 39, cns: 21, spos: 42, ds: 78]},
+	{name: "Darshan", rollno: 5, marks: [toc: 42, dbms: 23, cns: 84, spos: 63, ds: 74]}
+]
+);
+
+db.Student.find({}, {id: 0}).pretty();
+
+// db.Student.find({marks: {toc: {$gt: 40}}});
+db.Student.find({"marks.toc": 90});
+
+db.orders.aggregate( [
+
+   // Stage 1: Filter pizza order documents by pizza size
+   {
+      $match: { size: "medium" }
+   },
+
+   // Stage 2: Group remaining documents by pizza name and calculate total quantity
+   {
+      $group: { _id: "$name", totalQuantity: { $sum: "$quantity" } }
+   }
+
+] )
+
+db.Student.aggregate([
+{
+	$rollno: {$sum: ["marks.toc", "marks.dbms", "marks.cns", "marks.spos", "marks.ds"]}
+}
+]);
