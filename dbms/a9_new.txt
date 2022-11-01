@@ -1,0 +1,99 @@
+// insert
+
+db.Students.insertOne({rollno: 1, name: "Shreyash", phy: 95, chem: 83, math: 100, eng: 92, ele: 97});
+
+db.Students.insertMany([
+	{
+		rollno: 2,
+		name: "Aditya",
+		phy: 97,
+		chem: 100, 
+		math: 98,
+		eng: 90,
+		ele: 96
+	},
+	{
+		rollno: 3,
+		name: "Pratik",
+		phy: 87,
+		chem: 90, 
+		math: 67,
+		eng: 87,
+		ele: 84
+	},
+	{
+		rollno: 2,
+		name: "Pranav",
+		phy: 98,
+		chem: 70, 
+		math: 88,
+		eng: 80,
+		ele: 86
+	}
+]);
+
+db.Students.find();
+
+// replace
+db.Students.replaceOne(
+	{name: "Pranav"},
+	{rollno: 4}
+);
+
+// delete
+db.Students.deleteOne(
+	{rollno: 4}
+);
+
+db.Students.insertOne(
+	{
+		rollno: 2,
+		name: "Pranav",
+		phy: 98,
+		chem: 70, 
+		math: 88,
+		eng: 80,
+		ele: 86
+	}
+);
+
+//update
+db.Students.updateOne(
+	{name: "Pranav"},
+	{
+		$set: {rollno: 4}
+	}
+);
+
+
+db.Students.aggregate([
+{
+	$project:{
+		total: {$add: ["$phy", "$chem", "$math","$eng", "$ele"]}
+	}
+}
+]);
+
+db.Students.replaceOne(
+	{name: "Shreyash"},
+	{rollno: 1, name: "Shreyash", phy: 95, chem: 83, math: 100, eng: 92, ele: 97}
+);
+
+
+
+db.Students.aggregate([
+{
+	$project:{
+		total: multiply[{$add: ["$phy", "$chem", "$math","$eng", "$ele"]}, 0.05]
+	}
+},
+
+]);
+
+db.Students.aggregate([
+{
+	$project:{
+		average: {$multiply: [total, 0.05]}
+	}
+}
+]);
