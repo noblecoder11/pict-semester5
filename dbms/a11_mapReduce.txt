@@ -1,0 +1,28 @@
+-- creating and inserting data
+
+db.Student.insertMany([
+{rollno: 1, name: "Shreyash", dept: "CE", marks: 98},
+{rollno: 2, name: "Aditya", dept: "CE", marks: 99},
+{rollno: 3, name: "Pratik", dept: "IT", marks: 88},
+{rollno: 4, name: "Darshan", dept: "IT", marks: 78},
+{rollno: 5, name: "Onkar", dept: "ENTC", marks: 68}
+]);
+
+-- map function groups marks department wise
+var mapFunction = function(){emit(this.dept, this.marks);};
+
+-- defining reduce function for sum
+var reduceFunctionSum = function(keyDept, valueMarks) {return Array.sum(valueMarks);};
+
+-- applying mapReduce operation
+db.Student.mapReduce(mapFunction, reduceFunctionSum, {'out': 'dept_sum'});
+
+db.dept_sum.find().pretty();
+
+-- defining reduce function for avg
+var reduceFunctionAvg = function(keyDept, valueMarks) {return Array.avg(valueMarks);};
+
+-- applying map reduce
+db.Student.mapReduce(mapFunction, reduceFunctionAvg, {'out': 'dept_avg'});
+
+db.dept_avg.find().pretty();
