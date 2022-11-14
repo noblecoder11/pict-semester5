@@ -42,4 +42,7 @@ insert into Result values(rollno, sname, grade);
 end;
 //
 
+\d ;
+call create_result(1);
+
 select * from Result;
